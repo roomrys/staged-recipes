@@ -1,0 +1,62 @@
+{% set name = "nixio" %}
+{% set version = "1.5.3" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 0ba7a65148297bd43a5ddaf143c4faad1c999771aa1d7e690aa0a5e31f368608
+
+build:
+  number: 0
+  entry_points:
+    - nixio=nixio.cmd.main:main
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - attrs
+    - enum34
+    - h5py {{ h5py }}
+    - numpy
+    - pip
+    - pytest-runner
+    - python {{ python }}
+    - setuptools
+    - six
+  run:
+    - enum34
+    - h5py {{ h5py }}
+    - numpy
+    - python {{ python }}
+    - six
+
+test:
+  imports:
+    - nixio
+    - nixio.cmd
+    - nixio.exceptions
+    - nixio.hdf5
+    - nixio.util
+  commands:
+    - nixio --help
+  requires:
+    - matplotlib
+    - pillow
+    - pytest
+    - scipy
+
+about:
+  home: "https://github.com/G-Node/nixpy"
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: "Python reimplementation of NIXIO (http://g-node.github.io/nix/)"
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - roomrys
