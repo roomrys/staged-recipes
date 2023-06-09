@@ -1,0 +1,43 @@
+{% set name = "ndx-pose" %}
+{% set version = "0.1.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 167dc25f13ba1abc924543cbe44123703303b3f61e5baf6108334a3fe6def11c
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - hdmf >=2.5.6,<4
+    - pip
+    - pynwb >=1.5.0,<3
+    - python {{ python }}
+  run:
+    - hdmf >=2.5.6,<4
+    - pynwb >=1.5.0,<3
+    - python {{ python }}
+
+test:
+  imports:
+    - ndx_pose
+    - ndx_pose.io
+
+about:
+  home: The package home page
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: "NWB extension to store pose estimation data"
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - roomrys
